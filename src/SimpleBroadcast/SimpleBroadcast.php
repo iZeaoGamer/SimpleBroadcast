@@ -18,7 +18,7 @@ class SimpleBroadcast extends PluginBase{
 
     public $configFile;
 
-    public function onEnable(){
+    public function onEnable() : void{
         @mkdir($this->getDataFolder());
         $this->configFile = (new Config($this->getDataFolder()."config.yml", Config::YAML, array(
             "prefix" => "Broadcast",
@@ -27,7 +27,7 @@ class SimpleBroadcast extends PluginBase{
         $this->getLogger()->info("SimpleBroadcast has loaded!");
     }
 
-    public function onCommand(CommandSender $sender, Command $command, $label, array $args){
+    public function onCommand(CommandSender $sender, Command $command, string $label, array $args) : bool{
         switch($command->getName()){
             case "broadcast":
                 if (isset($args[0])) {
@@ -35,13 +35,14 @@ class SimpleBroadcast extends PluginBase{
                 }
                 else {
                     $sender->sendMessage("You need to specify a message to send.");
+                    return true;
                 }
                 break;
         }
 
     }
 
-    public function onDisable(){
+    public function onDisable() : void{
         $this->getLogger()->info("SimpleBroadcast has disabled!");
 
     }
